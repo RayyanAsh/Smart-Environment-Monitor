@@ -11,7 +11,7 @@ unsigned long lastTempRead = 0;      // Timer for moderating temnperature readin
 bool redState = HIGH;                // State of LED, used when blinking in ALERT state
 
 const float deadband = 0.25
-const float Threshold = 22.5;       // Added deadband to address temperautre at threshold
+const float Threshold = 22.5;       // Added deadband to address temperature flickering at threshold
 
 
 void setup() {
@@ -45,7 +45,7 @@ void loop() {
       digitalWrite(LEDR, HIGH);
       digitalWrite(LEDG, HIGH);
 
-      if (gesture == GESTURE_UP || gesture == GESTURE_RIGHT) {       // Transition statement and condition fgor IDLE -> MONITOR
+      if (gesture == GESTURE_UP || gesture == GESTURE_RIGHT) {       // Transition statement and condition for IDLE -> MONITOR 
         currentState = MONITOR;
       }
 
@@ -61,7 +61,7 @@ void loop() {
         temp = HS300x.readTemperature();
         Serial.println(temp);
         lastTempRead = millis();
-        if (temp > (Threshold - deadband) || temp < (Threshold + deadband) {                        // Transition statement and condition for MONITOR -> ALERT
+        if (temp > (Threshold - deadband) || temp < (Threshold + deadband) {                        // Transition statement and condition for MONITOR -> ALERT (implemented with deadband)
           currentState = ALERT;
         }
          
